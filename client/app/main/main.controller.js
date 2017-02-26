@@ -19,6 +19,4 @@ class MainController {
   }
 }
 
-MainController.$inject = ['MainService'];
-
 export default MainController;

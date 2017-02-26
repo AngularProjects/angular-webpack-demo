@@ -1,17 +1,15 @@
 /* styles in src/style directory are applied to the whole page */
 body {
-  background: #0147A7;
+  // background: #0147A7;
 }
 
 header {
   font-size: 35px;
-  color: #fff;
   font-weight: 600;
   margin: 20px 0;
 }
 
 .well.user-well {
-  background-color: #fff;
   padding: 20px 50px;
 }
 
