@@ -1,4 +1,12 @@
-<div class="container">
-  <h1>{{main.welcomeText}}</h1>
-  <button class="btn btn-default" ng-click="main.sayHello()">Hello World</button>
-</div>
+<article class="container">
+  <header>{{main.welcomeText}}</header>
+  <button class="btn btn-default example" ng-click="main.getUserData()">Show example data</button>
+  <section class="well user-well" ng-repeat="user in main.users">
+    <div class="row">
+      <h2>{{user.username}}</h2>
+    </div>
+    <div class="row">
+      <h5>{{user.email}}</h5>
+    </div>
+  </section>
+</article>

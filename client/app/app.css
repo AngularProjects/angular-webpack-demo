@@ -1,22 +1,20 @@
 /* styles in src/style directory are applied to the whole page */
 body {
   background: #0147A7;
+}
+
+header {
+  font-size: 35px;
   color: #fff;
+  font-weight: 600;
+  margin: 20px 0;
 }
 
-a {
-  color: #03A9F4;
+.well.user-well {
+  background-color: #fff;
+  padding: 20px 50px;
 }
 
-main {
-  padding: 1em;
-  font-family: Arial, Helvetica, sans-serif;
-  text-align: center;
-  margin-top: 50px;
-  display: block;
-}
-
-footer {
-  text-align: center;
-  font-size: 0.8em;
+.btn-default.example {
+  margin: 20px 0;
 }

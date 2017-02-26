@@ -1,6 +1,6 @@
 'use strict';
 
-export default function routes($stateProvider) {
+export default ($stateProvider) => {
   'ngInject';
 
   $stateProvider.state('main', {

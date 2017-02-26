@@ -1,10 +1,24 @@
-export default class MainController {
+'use strict';
 
-  constructor() {
-    this.welcomeText = 'Hello world, this is a demo of angular with webpack';
+class MainController {
+
+  constructor(MainService) {
+    this.welcomeText = 'Hello, this is a demo of angular with webpack';
+    this.MainService = MainService;
+    this.users = [];
   }
 
-  sayHello() {
-    alert('Hello, world!');
+  getUserData() {
+    this.MainService.getExampleData()
+      .then((res) => {
+        this.users = res.data;
+      })
+      .catch((err) => {
+
+      });
   }
 }
+
+MainController.$inject = ['MainService'];
+
+export default MainController;
