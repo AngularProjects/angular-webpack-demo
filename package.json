@@ -1,12 +1,10 @@
 {
-  "name": "angular-blog",
+  "name": "angular-webpack",
   "version": "0.0.1",
-  "description": "Angular blog web app",
+  "description": "",
   "scripts": {
     "build": "rimraf dist && webpack --bail --progress --profile",
     "server": "webpack-dev-server --history-api-fallback --inline --progress",
-    "test": "karma start",
-    "test-watch": "karma start --auto-watch --no-single-run",
     "start": "babel-node server/app.js",
     "dev": "nodemon server/app.js --exec babel-node"
   },
