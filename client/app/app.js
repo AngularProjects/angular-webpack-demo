@@ -1,25 +1,22 @@
-import angular from 'angular';
+'use strict';
 
+import angular from 'angular';
+import ngCookies from 'angular-cookies';
+import ngResource from 'angular-resource';
+import ngSanitize from 'angular-sanitize';
+import uiRouter from 'angular-ui-router';
+import uiBootstrap from 'angular-ui-bootstrap';
+
+import main from './main';
+
+
+import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './app.css';
 
-let app = () => {
-  return {
-    template: require('./app.html'),
-    controller: 'AppCtrl',
-    controllerAs: 'app'
-  }
-};
+angular.module('app', [ngCookies, ngResource, ngSanitize, uiRouter, uiBootstrap, main])
+  .config(($urlRouterProvider, $locationProvider) => {
+    'ngInject';
 
-class AppCtrl {
-  constructor() {
-    this.url = 'https://github.com/preboot/angular-webpack';
-  }
-}
-
-const MODULE_NAME = 'app';
-
-angular.module(MODULE_NAME, [])
-  .directive('app', app)
-  .controller('AppCtrl', AppCtrl);
-
-export default MODULE_NAME;
+    $urlRouterProvider.otherwise('/');
+    $locationProvider.html5Mode(true);
+  });
