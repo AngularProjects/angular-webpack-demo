@@ -5,5 +5,5 @@ export default ($http) => {
     getExampleData() {
       return $http.get('/api/users/getAllUsers');
     }
-  }
+  };
 };

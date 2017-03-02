@@ -17,5 +17,5 @@ User.find({}).remove()
     .then(() => {
       console.log(` ${'Seed'.cyan}: finished populatiing users data`);
       console.log('-'.repeat(65).grey);
-    })
+    });
   });

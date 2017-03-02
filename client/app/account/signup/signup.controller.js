@@ -12,7 +12,7 @@ class SignupController {
   }
 
   register() {
-    alert('hello');
+    alert('Design this part yourself!');
   }
 }
 

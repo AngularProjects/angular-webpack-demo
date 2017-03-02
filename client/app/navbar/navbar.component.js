@@ -1,6 +1,6 @@
 'use strict';
-/* eslint no-sync: 0 */
-export class NavbarComponent {
+
+export default class NavbarComponent {
   menu = [{
     title: 'Home',
     state: 'main'
@@ -8,13 +8,7 @@ export class NavbarComponent {
 
   isCollapsed = true;
 
-  constructor(Auth) {
+  constructor() {
     'ngInject';
-
-    // this.isLoggedIn = Auth.isLoggedInSync;
-    // this.isAdmin = Auth.isAdminSync;
-    // this.getCurrentUser = Auth.getCurrentUserSync;
   }
 }
-
-

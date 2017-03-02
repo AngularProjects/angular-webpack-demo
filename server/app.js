@@ -12,7 +12,7 @@ const startServer = () => {
     console.log('-'.repeat(65).grey);
     console.log(` ${'Express'.cyan}: server is listening on ${address.magenta}`);
   });
-}
+};
 
 setImmediate(startServer);
 

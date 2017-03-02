@@ -11,8 +11,7 @@ import main from './main';
 import navbar from './navbar';
 import account from './account';
 
-import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import './app.css';
+import './app.less';
 
 angular.module('app', [ngCookies, ngResource, ngSanitize, uiRouter, uiBootstrap, main, navbar, account])
   .config(($urlRouterProvider, $locationProvider) => {

@@ -53,7 +53,7 @@ module.exports = function makeWebpackConfig() {
 
     // Filename for non-entry points
     // Only adds hash in build mode
-    chunkFilename: isProd ? '[name].[hash].js' : '[name].bundle.js'
+    chunkFilename: '[name].bundle.js'
   };
 
   /**
@@ -87,26 +87,11 @@ module.exports = function makeWebpackConfig() {
       loader: 'babel-loader',
       exclude: /node_modules/
     }, {
-      // CSS LOADER
-      // Reference: https://github.com/webpack/css-loader
-      // Allow loading css through js
-      //
-      // Reference: https://github.com/postcss/postcss-loader
-      // Postprocess your css with PostCSS plugins
-      test: /\.css$/,
-      // Reference: https://github.com/webpack/extract-text-webpack-plugin
-      // Extract css files in production builds
-      //
-      // Reference: https://github.com/webpack/style-loader
-      // Use style-loader in development.
-
-      loader: isTest ? 'null-loader' : ExtractTextPlugin.extract({
+      test: /.less$/,
+      loader: ExtractTextPlugin.extract({
         fallbackLoader: 'style-loader',
-        loader: [
-          { loader: 'css-loader', query: { sourceMap: true } },
-          { loader: 'postcss-loader' }
-        ],
-      })
+        loader: 'css-loader!less-loader'
+      }),
     }, {
       // ASSET LOADER
       // Reference: https://github.com/webpack/file-loader
@@ -141,7 +126,7 @@ module.exports = function makeWebpackConfig() {
       query: {
         esModules: true
       }
-    })
+    });
   }
 
   /**
@@ -182,7 +167,7 @@ module.exports = function makeWebpackConfig() {
       // Extract css files
       // Disabled when in test mode or not in build mode
       new ExtractTextPlugin({ filename: '[name].css', disable: !isProd, allChunks: true })
-    )
+    );
   }
 
   // Add build specific plugins
@@ -199,14 +184,14 @@ module.exports = function makeWebpackConfig() {
 
       // Reference: http://webpack.github.io/docs/list-of-plugins.html#uglifyjsplugin
       // Minify all javascript, switch loaders to minimizing mode
-      new webpack.optimize.UglifyJsPlugin()
+      new webpack.optimize.UglifyJsPlugin(),
 
       // Copy assets from the public folder
       // Reference: https://github.com/kevlened/copy-webpack-plugin
-      // new CopyWebpackPlugin([{
-      //   from: `${__dirname}/client/public`
-      // }])
-    )
+      new CopyWebpackPlugin([{
+        from: `${__dirname}/client/public`
+      }])
+    );
   }
 
   /**

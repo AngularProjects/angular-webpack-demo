@@ -15,5 +15,5 @@ export default ($stateProvider) => {
       template: require('./signup/signup.html'),
       controller: 'SignupController',
       controllerAs: '$ctrl'
-    })
-}
+    });
+};

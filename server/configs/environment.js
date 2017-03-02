@@ -1,5 +1,5 @@
 'use strict';
-// environment configs
+
 import path from 'path';
 
 export default {
@@ -25,4 +25,4 @@ export default {
   secrets: {
     session: 'angular-example-secret'
   },
-}
+};

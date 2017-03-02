@@ -9,4 +9,4 @@ export default ($stateProvider) => {
     controller: 'MainController',
     controllerAs: 'main'
   });
-}
+};

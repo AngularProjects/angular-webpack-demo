@@ -9,9 +9,8 @@ class LoginController {
     };
   }
 
-  login(form) {
-    console.log(this.user);
-    // alert('hello');
+  login() {
+    alert('Design this part yourself!');
   }
 }
 

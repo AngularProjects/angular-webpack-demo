@@ -13,7 +13,7 @@ class MainController {
       .then((res) => {
         this.users = res.data;
       })
-      .catch((err) => {
+      .catch(() => {
 
       });
   }

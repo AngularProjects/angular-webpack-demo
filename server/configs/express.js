@@ -9,15 +9,13 @@ import methodOverride from 'method-override';
 import cookieParser from 'cookie-parser';
 import errorHandler from 'errorhandler';
 import path from 'path';
-import lusca from 'lusca';
-import config from './environment';
-import passport from 'passport';
 import session from 'express-session';
 import connectMongo from 'connect-mongo';
 import mongoose from 'mongoose';
+import config from './environment';
 
 export default (app) => {
-  var env = app.get('env');
+  const env = app.get('env');
 
   app.set('appPath', path.join(config.root, 'client'));
   app.use(express.static(app.get('appPath')));
@@ -33,7 +31,6 @@ export default (app) => {
   app.use(bodyParser.json());
   app.use(methodOverride());
   app.use(cookieParser());
-  // app.use(passport.initialize());
 
   // Persist sessions with MongoStore / sequelizeStore
   // We need to enable sessions for passport-twitter because it's an
@@ -52,4 +49,4 @@ export default (app) => {
   if (env === 'development' || env === 'test') {
     app.use(errorHandler()); // Error handler - has to be last
   }
-}
+};
