@@ -15,7 +15,6 @@ User.find({}).remove()
       password: 'jane'
     })
     .then(() => {
-      console.log(` ${'Seed'.cyan}: finished populatiing users data`);
-      console.log('-'.repeat(65).grey);
+      console.log(`[${'Seed'.cyan}]: finished populatiing users data`);
     });
   });

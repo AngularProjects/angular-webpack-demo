@@ -6,11 +6,13 @@ export default {
 
   port: 9000,
 
-  seedDB: false,
+  seedDB: true,
 
   root: path.normalize(`${__dirname}/../..`),
 
   ip: process.env.IP || '0.0.0.0', // Server IP
+
+  browserSyncPort: process.env.BROWSER_SYNC_PORT || 9000,
 
   mongo: {
     uri: 'mongodb://localhost/angular-example',

@@ -9,10 +9,7 @@ mongoose.Promise = require('bluebird');
 mongoose.connect(environment.mongo.uri, environment.mongo.options);
 
 mongoose.connection.on('connected', () => {
-  console.log(` ${'Mongoose'.cyan}: connection open to ${environment.mongo.uri.magenta}`);
-  if (!environment.seedDB) {
-    console.log('-'.repeat(65).grey);
-  }
+  console.log(`[${'Mongoose'.cyan}]: connection open to ${environment.mongo.uri.magenta}`);
 });
 
 mongoose.connection.on('error', (err) => {
