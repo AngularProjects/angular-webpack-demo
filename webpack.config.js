@@ -1,22 +1,21 @@
 'use strict';
 
 const webpack = require('webpack');
-const autoprefixer = require('autoprefixer');
+// const autoprefixer = require('autoprefixer');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-
-// const CopyWebpackPlugin = require('copy-webpack-plugin');
-const CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
 const dev = require('./server/configs/development');
 
+const CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
 const ENV = process.env.npm_lifecycle_event;
 const isProd = ENV === 'build' || ENV === 'prod';
 const isServe = ENV === 'serve';
 
 module.exports = function makeWebpackConfig(options) {
   const isDev = options ? !!options.DEV : false;
+
   const config = {
     entry: {
       app: './client/app/app.js',
@@ -27,7 +26,7 @@ module.exports = function makeWebpackConfig(options) {
         'angular-cookies',
         'angular-resource',
         'angular-sanitize',
-        'angular-ui-bootstrap',
+        // 'angular-ui-bootstrap',
         'angular-ui-router',
         'lodash'
       ]
@@ -35,20 +34,20 @@ module.exports = function makeWebpackConfig(options) {
 
     output: {
       // Absolute output directory
-      path: isProd ? path.join(__dirname, '/client/') : path.join(__dirname, '/.tmp/'),
+      path: path.join(__dirname, '/.tmp/'),
 
       // Uses webpack-dev-server in development
       publicPath: isProd || isServe || isDev ? '/' : `http://${dev.host}:${dev.port}/`,
 
       // Filename for entry points
-      filename: isProd ? 'dist/build/[name].[hash].js' : '[name].bundle.js',
+      filename: isProd ? '[name].[hash].js' : '[name].bundle.js',
 
       // Filename for non-entry points
-      chunkFilename: isProd ? 'dist/build/[name].[hash].js' : '[name].bundle.js'
+      chunkFilename: isProd ? '[name].[hash].js' : '[name].bundle.js'
     },
 
     // Type of sourcemap to use per build type
-    devtool: isProd ? 'source-map' : 'eval-source-map',
+    devtool: isProd ? 'source-map' : 'eval',
 
     module: {
       rules: [{
@@ -60,33 +59,14 @@ module.exports = function makeWebpackConfig(options) {
         loader: 'babel-loader',
         exclude: /node_modules/
       }, {
-        // CSS LOADER
-        // Reference: https://github.com/webpack/css-loader
-        // Allow loading css through js
-        //
-        // Reference: https://github.com/postcss/postcss-loader
-        // Postprocess your css with PostCSS plugins
-        test: /\.css$/,
-        // Reference: https://github.com/webpack/extract-text-webpack-plugin
-        // Extract css files in production builds
-        //
-        // Reference: https://github.com/webpack/style-loader
-        // Use style-loader in development.
-
+        test: /\.less$/,
         loader: ExtractTextPlugin.extract({
           fallbackLoader: 'style-loader',
           loader: [
             { loader: 'css-loader', query: { sourceMap: true } },
-            { loader: 'postcss-loader' }
+            { loader: 'less-loader' }
           ],
         })
-      }, {
-        test: /\.less$/,
-        use: [
-          { loader: 'style-loader' },
-          { loader: 'css-loader', options: { importLoaders: 1 } },
-          { loader: 'less-loader' }
-        ]
       }, {
         // ASSET LOADER
         // Reference: https://github.com/webpack/file-loader
@@ -105,20 +85,11 @@ module.exports = function makeWebpackConfig(options) {
       }]
     },
 
-    plugins: [
-      new webpack.LoaderOptionsPlugin({
-        test: /\.scss$/i,
-        options: {
-          postcss: {
-            plugins: [autoprefixer]
-          }
-        }
-      })
-    ],
+    plugins: [],
 
     devServer: {
       proxy: {
-        contentBase: ''
+        contentBase: './client'
       },
       stats: 'minimal'
     }
@@ -134,7 +105,7 @@ module.exports = function makeWebpackConfig(options) {
     // Reference: https://github.com/webpack/extract-text-webpack-plugin
     // Extract css files
     // Disabled when in test mode or not in build mode
-    new ExtractTextPlugin({ filename: isProd ? 'dist/build/[name].css' : '[name].css', disable: !isProd, allChunks: true }),
+    new ExtractTextPlugin({ filename: '[name].css', disable: !isProd, allChunks: true }),
 
     new CommonsChunkPlugin({
       // (Give the chunk a different name)
@@ -147,7 +118,7 @@ module.exports = function makeWebpackConfig(options) {
 
 
   // Add build specific plugins
-  if (isProd) {
+  if (isProd || isDev) {
     config.plugins.push(
       // Reference: http://webpack.github.io/docs/list-of-plugins.html#noerrorsplugin
       // Only emit files when there are no errors
@@ -169,7 +140,7 @@ module.exports = function makeWebpackConfig(options) {
       // Define free global variables
       new webpack.DefinePlugin({
         'process.env': {
-          NODE_ENV: '"production"'
+          NODE_ENV: isProd ? JSON.stringify('production') : JSON.stringify('development')
         }
       })
     );

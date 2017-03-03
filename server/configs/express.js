@@ -17,7 +17,7 @@ import config from './environment';
 export default (app) => {
   const env = app.get('env');
 
-  if (env === 'development' || env === 'test') {
+  if (env === 'development' || env === 'test' || env === 'production') {
     app.use(express.static(path.join(config.root, '.tmp')));
   }
 
@@ -67,7 +67,7 @@ export default (app) => {
      * Run Browsersync and use middleware for Hot Module Replacement
      */
     browserSync.init({
-      open: false,
+      open: true,
       logFileChanges: false,
       proxy: `localhost:${config.port}`,
       ws: true,
@@ -89,7 +89,7 @@ export default (app) => {
      * Reload all devices when bundle is complete
      * or send a fullscreen error message to the browser instead
      */
-    compiler.plugin('done', function (stats) {
+    compiler.plugin('done', (stats) => {
       console.log('webpack done hook');
       if (stats.hasErrors() || stats.hasWarnings()) {
         return browserSync.sockets.emit('fullscreen:message', {
@@ -101,5 +101,4 @@ export default (app) => {
       browserSync.reload();
     });
   }
-
 };

@@ -8,6 +8,7 @@ module.exports = {
     "brace-style": 0,
     "func-names": 0,
     "no-underscore-dangle": 0,
+    "no-console": 0,
     "consistent-return": 0,
     "comma-dangle": 0,
     "max-len": [2, 150, 2],

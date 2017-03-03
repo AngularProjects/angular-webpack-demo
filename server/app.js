@@ -5,18 +5,12 @@ import environment from './configs/environment';
 
 const app = express();
 const server = http.createServer(app);
-const env = app.get('env');
 
 const startServer = () => {
   app.angularExample = server.listen(environment.port, environment.ip, () => {
-    console.log(env.length);
-    console.log(typeof env);
-    console.log(env === 'production');
-     console.log(env == 'production');
-    if (env === 'production') {
-      const address = `http://localhost:${environment.port}`;
-      console.log(`[${'Express'.cyan}]: server is listening on ${address.magenta}`);
-    }
+    console.log('-'.repeat(39).grey);
+    const address = `http://localhost:${environment.port}`;
+    console.log(`[${'Express'.blue}]: server: ${address.cyan}`);
   });
 };
 

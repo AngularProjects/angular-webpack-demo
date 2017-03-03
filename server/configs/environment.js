@@ -6,7 +6,7 @@ export default {
 
   port: 9000,
 
-  seedDB: true,
+  seedDB: false,
 
   root: path.normalize(`${__dirname}/../..`),
 
@@ -16,6 +16,7 @@ export default {
 
   mongo: {
     uri: 'mongodb://localhost/angular-example',
+    db: 'angular-example',
     options: {
       db: {
         safe: true

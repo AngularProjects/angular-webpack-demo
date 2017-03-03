@@ -15,6 +15,6 @@ User.find({}).remove()
       password: 'jane'
     })
     .then(() => {
-      console.log(`[${'Seed'.cyan}]: finished populatiing users data`);
+      console.log(`[${'MongoDB'.blue}]: finish populating users data`);
     });
   });

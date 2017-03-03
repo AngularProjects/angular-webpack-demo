@@ -10,7 +10,7 @@ import main from './main';
 import navbar from './navbar';
 import account from './account';
 
-import './app.css';
+import './app.less';
 
 angular.module('app', [ngCookies, ngResource, ngSanitize, uiRouter, main, navbar, account])
   .config(($urlRouterProvider, $locationProvider) => {

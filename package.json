@@ -6,8 +6,8 @@
     "build": "rimraf ./client/dist/build && webpack --bail --progress --profile",
     "serve": "webpack-dev-server --history-api-fallback --inline --progress",
     "start": "babel-node server/app.js",
-    "prod": "rimraf ./client/dist/build && webpack --bail --progress --profile && set NODE_ENV=production&& babel-node server/app.js",
-    "dev": "nodemon server/app.js --exec babel-node"
+    "dev": "nodemon server/app.js --exec babel-node",
+    "prod": "rimraf ./client/dist/build && webpack --bail --progress --profile && set NODE_ENV=production&& babel-node server/app.js"
   },
   "repository": {
     "type": "git",
@@ -33,6 +33,7 @@
     "bluebird": "^3.4.7",
     "body-parser": "^1.16.1",
     "bootstrap": "^3.3.7",
+    "bootstrap-social": "^5.1.1",
     "browser-sync": "^2.18.8",
     "bs-fullscreen-message": "^1.1.0",
     "colors": "^1.1.2",
