@@ -47,7 +47,7 @@ module.exports = function makeWebpackConfig(options) {
     },
 
     // Type of sourcemap to use per build type
-    devtool: isProd ? 'source-map' : 'eval',
+    devtool: isProd || isDev ? 'source-map' : 'eval',
 
     module: {
       rules: [{
