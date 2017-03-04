@@ -10,7 +10,7 @@ const startServer = () => {
   app.angularExample = server.listen(environment.port, environment.ip, () => {
     console.log('-'.repeat(39).grey);
     const address = `http://localhost:${environment.port}`;
-    console.log(`[${'Express'.blue}]: server: ${address.cyan}`);
+    console.log(`[${'Express'.cyan}]: ${address.cyan}`);
   });
 };
 

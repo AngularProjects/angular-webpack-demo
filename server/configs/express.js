@@ -67,7 +67,7 @@ export default (app) => {
      * Run Browsersync and use middleware for Hot Module Replacement
      */
     browserSync.init({
-      open: true,
+      open: false,
       logFileChanges: false,
       proxy: `localhost:${config.port}`,
       ws: true,

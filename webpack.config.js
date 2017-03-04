@@ -1,11 +1,12 @@
 'use strict';
 
 const webpack = require('webpack');
-// const autoprefixer = require('autoprefixer');
+const autoprefixer = require('autoprefixer');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+
 const dev = require('./server/configs/development');
 
 const CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
@@ -15,7 +16,6 @@ const isServe = ENV === 'serve';
 
 module.exports = function makeWebpackConfig(options) {
   const isDev = options ? !!options.DEV : false;
-
   const config = {
     entry: {
       app: './client/app/app.js',
@@ -26,7 +26,7 @@ module.exports = function makeWebpackConfig(options) {
         'angular-cookies',
         'angular-resource',
         'angular-sanitize',
-        // 'angular-ui-bootstrap',
+        'angular-ui-bootstrap',
         'angular-ui-router',
         'lodash'
       ]
@@ -37,7 +37,7 @@ module.exports = function makeWebpackConfig(options) {
       path: path.join(__dirname, '/.tmp/'),
 
       // Uses webpack-dev-server in development
-      publicPath: isProd || isServe || isDev ? '/' : `http://${dev.host}:${dev.port}/`,
+      publicPath: isProd || isDev ? '/' : `http://${dev.host}:${dev.port}/`,
 
       // Filename for entry points
       filename: isProd ? '[name].[hash].js' : '[name].bundle.js',
@@ -87,11 +87,12 @@ module.exports = function makeWebpackConfig(options) {
 
     plugins: [],
 
-    devServer: {
-      proxy: {
-        contentBase: './client'
-      },
-      stats: 'minimal'
+    cache: isDev,
+
+    devServer: {},
+
+    stats: {
+      timings: true
     }
   };
 
@@ -113,12 +114,20 @@ module.exports = function makeWebpackConfig(options) {
       // (with more entries, this ensures that no other module
       //  goes into the vendor chunk)
       minChunks: Infinity
+    }),
+
+    new webpack.LoaderOptionsPlugin({
+      options: {
+        context: __dirname,
+        postcss: [
+          autoprefixer
+        ]
+      }
     })
   );
 
-
   // Add build specific plugins
-  if (isProd || isDev) {
+  if (isProd) {
     config.plugins.push(
       // Reference: http://webpack.github.io/docs/list-of-plugins.html#noerrorsplugin
       // Only emit files when there are no errors
@@ -140,11 +149,46 @@ module.exports = function makeWebpackConfig(options) {
       // Define free global variables
       new webpack.DefinePlugin({
         'process.env': {
-          NODE_ENV: isProd ? JSON.stringify('production') : JSON.stringify('development')
+          NODE_ENV: '"production"'
         }
       })
     );
   }
+
+  if (isDev) {
+    config.plugins.push(
+      // Reference: https://webpack.github.io/docs/list-of-plugins.html#defineplugin
+      // Define free global variables
+      new webpack.DefinePlugin({
+        'process.env': {
+          NODE_ENV: '"development"'
+        }
+      })
+    );
+  }
+
+  /**
+   * Dev server configuration
+   * Reference: http://webpack.github.io/docs/configuration.html#devserver
+   * Reference: http://webpack.github.io/docs/webpack-dev-server.html
+   */
+  config.devServer = {
+    contentBase: './client/',
+    stats: {
+      modules: false,
+      cached: false,
+      colors: true,
+      chunk: false,
+    }
+  };
+
+  config.node = {
+    global: true,
+    process: true,
+    crypto: 'empty',
+    clearImmediate: false,
+    setImmediate: false
+  };
 
   return config;
 };

@@ -3,11 +3,11 @@
   "version": "0.0.1",
   "description": "Example app with angular and webpack",
   "scripts": {
-    "build": "rimraf ./client/dist/build && webpack --bail --progress --profile",
+    "build": "rimraf ./.tmp && webpack --bail --progress --profile",
     "serve": "webpack-dev-server --history-api-fallback --inline --progress",
     "start": "babel-node server/app.js",
     "dev": "nodemon server/app.js --exec babel-node",
-    "prod": "rimraf ./client/dist/build && webpack --bail --progress --profile && set NODE_ENV=production&& babel-node server/app.js"
+    "prod": "rimraf ./.tmp && webpack --bail --progress --profile && NODE_ENV=production babel-node server/app.js"
   },
   "repository": {
     "type": "git",

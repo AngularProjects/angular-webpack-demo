@@ -15,6 +15,9 @@ User.find({}).remove()
       password: 'jane'
     })
     .then(() => {
-      console.log(`[${'MongoDB'.blue}]: finish populating users data`);
+      console.log(`[${'Seed'.yellow}]: finish populating users data`);
+      if (process.env.NODE_ENV === 'production') {
+        console.log('-'.repeat(39).grey);
+      }
     });
   });

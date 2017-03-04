@@ -9,7 +9,10 @@ mongoose.Promise = require('bluebird');
 mongoose.connect(environment.mongo.uri, environment.mongo.options);
 
 mongoose.connection.on('connected', () => {
-  console.log(`[${'MongoDB'.blue}]: connected to ${environment.mongo.db.cyan}`);
+  console.log(`[${'MongoDB'.cyan}]: connected ${environment.mongo.db.cyan}`);
+  if (!environment.seedDB && process.env.NODE_ENV === 'production') {
+    console.log('-'.repeat(39).grey);
+  }
 });
 
 mongoose.connection.on('error', (err) => {

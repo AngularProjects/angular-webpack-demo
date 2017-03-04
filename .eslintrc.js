@@ -23,6 +23,7 @@ module.exports = {
     "class-methods-use-this": 0,
     "no-alert": 0,
     "arrow-parens": 0,
-    "import/prefer-default-export": 0
+    "import/prefer-default-export": 0,
+    "import/no-extraneous-dependencies": 0
   }
 };
