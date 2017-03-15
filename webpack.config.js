@@ -12,7 +12,7 @@ const dev = require('./server/configs/development');
 const CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
 const ENV = process.env.npm_lifecycle_event;
 const isProd = ENV === 'build' || ENV === 'prod';
-const isServe = ENV === 'serve';
+// const isServe = ENV === 'serve';
 
 module.exports = function makeWebpackConfig(options) {
   const isDev = options ? !!options.DEV : false;
@@ -102,11 +102,12 @@ module.exports = function makeWebpackConfig(options) {
       filename: '../client/index.html',
       alwaysWriteToDisk: true
     }),
+
     new HtmlWebpackHarddiskPlugin(),
     // Reference: https://github.com/webpack/extract-text-webpack-plugin
     // Extract css files
     // Disabled when in test mode or not in build mode
-    new ExtractTextPlugin({ filename: '[name].css', disable: !isProd, allChunks: true }),
+    new ExtractTextPlugin({ filename: '[name].css', disable: false, allChunks: true }),
 
     new CommonsChunkPlugin({
       // (Give the chunk a different name)
@@ -114,6 +115,11 @@ module.exports = function makeWebpackConfig(options) {
       // (with more entries, this ensures that no other module
       //  goes into the vendor chunk)
       minChunks: Infinity
+    }),
+
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery'
     }),
 
     new webpack.LoaderOptionsPlugin({

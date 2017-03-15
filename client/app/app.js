@@ -6,6 +6,7 @@ import ngResource from 'angular-resource';
 import ngSanitize from 'angular-sanitize';
 import uiRouter from 'angular-ui-router';
 import uiBootstrap from 'angular-ui-bootstrap';
+import 'bootstrap/dist/js/bootstrap';
 import main from './main';
 import navbar from './navbar';
 import account from './account';
